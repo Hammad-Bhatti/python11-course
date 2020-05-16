@@ -1,0 +1,40 @@
+class Library:
+    name = input("please enter your name\n")
+
+    def __init__(self, list_of_books, available_status_of_book):
+        self.list_of_books = list_of_books
+        self.available_status_of_book = available_status_of_book
+
+    def displaybook(self):
+        print(self.list_of_books.keys())
+
+    def lendbook(self, book):
+        stbk = self.list_of_books.get(book, "not available")
+        if stbk == self.available_status_of_book:
+            print("book is", stbk)
+            self.list_of_books[book] = self.name
+            print(f"book assigned to {self.name}\n")
+        elif stbk == self.name:
+            print(f"the book is already assigned to you, cant borrow another\n")
+        elif stbk == "not available":
+            print("Sorry! this book is not in the library")
+        else:
+            print(f"the book is already assigned to {self.list_of_books[book]}\n")
+
+    def addbook(self, bookname):
+        self.list_of_books.setdefault(bookname, self.available_status_of_book)
+        # self.list_of_books.update({bookname: self.available_status_of_book})
+        print("Book has been added in the library")
+
+    def returnbook(self, book_to_return):
+        bookklender = self.list_of_books.get(book_to_return, "book not found")
+        if bookklender == self.name:
+            input("Yes! this book is assigned to you\nEnter any key to return your book\n")
+            self.list_of_books[book_to_return] = self.available_status_of_book
+            print("successfully returned!!! THANK YOU\n")
+        elif bookklender == self.available_status_of_book:
+            print("ERROR! This book is not assigned to anyone\n")
+        elif bookklender == "book not found":
+            print("Sorry! This Book is not found in the library\n")
+        else:
+            print(f"this book was not assigned to {self.name} and assigned to someone else\nTry again!!!\n")
